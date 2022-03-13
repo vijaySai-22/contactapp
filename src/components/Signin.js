@@ -2,7 +2,6 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from '@firebase/auth'
 import React, { useEffect, useRef, useState } from 'react'
 import { auth } from '../firebase'
 import Home from './Home'
-
 function Signin(props) {
     const emailref = useRef()
     const passwordref = useRef()
@@ -27,16 +26,16 @@ function Signin(props) {
         {
             (!userIn)
             ?
-            <div>
-                <h1>Sign In</h1>
-                <p>Don't have an account <span onClick={()=>props.changeHasAccount(false)}>Signup</span></p>
+            <div style={container}>
+                <h1 style={head}>Sign In</h1>
+                <p style={head}>Don't have an account <span style={span} onClick={()=>props.changeHasAccount(false)}>Signup</span></p>
                 <h3>Email</h3>
-                <input type='email' ref={emailref} required/>
+                <input style={input} type='email' ref={emailref} required/>
                 <h3>Password</h3>
-                <input type='password' ref={passwordref} required/>
+                <input style={input} type='password' ref={passwordref} required/>
                 <br/>
-                <br/>
-                <button onClick={signin} >Sign In</button>
+                <p style={fgt}>Forgot your password?</p>
+                <div style={btn} onClick={signin} >Sign In</div>
             </div>
             :
             <Home/>
@@ -46,3 +45,28 @@ function Signin(props) {
   )
 }
 export default Signin;
+
+const container = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)"
+}
+const head={
+    textAlign:'center'
+}
+const span = { color: "rgb(0, 124, 155)" }
+const input = { height: "30px", width: "300px", fontSize: "2em" }
+const fgt = { textAlign: "end", color: "rgb(0, 124, 155)" }
+const btn = {
+    width: "300px",
+    height: "35px",
+    color: "white",
+    backgroundColor: "rgb(8, 101, 206)",
+    fontSize: "1.3em",
+    margin: "5px",
+    textAlign: "center",
+    paddingTop: "6px"
+}
+  
