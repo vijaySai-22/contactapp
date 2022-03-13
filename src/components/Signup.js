@@ -3,7 +3,6 @@ import { addDoc, collection } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { auth, db } from '../firebase'
 import Home from './Home'
-import './../signin.css'
 
 function Signup(props) {
     const[data,setData]=useState({
@@ -81,7 +80,7 @@ const head={
     textAlign:'center'
 }
 const span = { color: "rgb(0, 124, 155)" }
-const input = { height: "30px", width: "300px", fontSize: "2em" }
+const input = { height: "30px", width: "300px", fontSize: "1.3em" }
 const btn = {
     alignItems: "center",
     width: "310px",

@@ -2,6 +2,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from '@firebase/auth'
 import React, { useEffect, useRef, useState } from 'react'
 import { auth } from '../firebase'
 import Home from './Home'
+import './../App.css'
 function Signin(props) {
     const emailref = useRef()
     const passwordref = useRef()
@@ -57,7 +58,7 @@ const head={
     textAlign:'center'
 }
 const span = { color: "rgb(0, 124, 155)" }
-const input = { height: "30px", width: "300px", fontSize: "2em" }
+const input = { height: "30px", width: "300px", fontSize: "1.3em" }
 const fgt = { textAlign: "end", color: "rgb(0, 124, 155)" }
 const btn = {
     alignItems: "center",
