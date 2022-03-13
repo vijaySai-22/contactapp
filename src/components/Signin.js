@@ -60,12 +60,12 @@ const span = { color: "rgb(0, 124, 155)" }
 const input = { height: "30px", width: "300px", fontSize: "2em" }
 const fgt = { textAlign: "end", color: "rgb(0, 124, 155)" }
 const btn = {
+    alignItems: "center",
     width: "300px",
     height: "35px",
     color: "white",
     backgroundColor: "rgb(8, 101, 206)",
     fontSize: "1.3em",
-    margin: "5px",
     textAlign: "center",
     paddingTop: "6px"
 }

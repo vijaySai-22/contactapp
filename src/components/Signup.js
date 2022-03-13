@@ -3,6 +3,7 @@ import { addDoc, collection } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { auth, db } from '../firebase'
 import Home from './Home'
+import './../signin.css'
 
 function Signup(props) {
     const[data,setData]=useState({
@@ -30,33 +31,37 @@ function Signup(props) {
     }
     const [userIn,setUserIn] = useState(false)
     useEffect(()=>{
-        const check=onAuthStateChanged(auth,(user)=>{
-            if (user!=null){
-                setUserIn(true)
-            }
-            else{
-                setUserIn(false)
-            }
-        })
-        return check
+        function fetched(){
+            const check=onAuthStateChanged(auth,(user)=>{
+                if (user!=null){
+                    setUserIn(true)
+                }
+                else{
+                    setUserIn(false)
+                }
+            })
+            return check
+        }
+        fetched()
     },[])
   return (
     <>
         {
             (!userIn)
             ?
-            <div>
-                <h1>Signup</h1>
-                <p>Already have an account <span onClick={()=>props.changeHasAccount(true)}>Login</span></p>
+            <div style={container}>
+                <h1 style={head}>Signup</h1>
+                <p style={head}>Already have an account <span style={span} onClick={()=>props.changeHasAccount(true)}>Login</span></p>
                 <h3>Email</h3>
-                <input type='email' onChange={change} value={email} name='email' required/>
+                <input style={input} type='email' onChange={change} value={email} name='email' required/>
                 <h3>Password</h3>
-                <input type='password' onChange={change} value={password} name='password' required/>
+                <input style={input} type='password' onChange={change} value={password} name='password' required/>
                 <h3>Secret</h3>
-                <input type='password' onChange={change} value={secret} name='secret' />
+                <input style={input} type='password' onChange={change} value={secret} name='secret' />
                 <br/>
                 <br/>
-                <button onClick={signup} >Sign Up</button>
+                <div style={btn} onClick={signup} >Sign Up</div>
+                <p style={{width:'300px',paddingLeft:'10px'}}>By clicking 'Sign Up' button, you are creating an account, and you agree to Terms of Use.</p>
             </div>
             :<Home/>
         }
@@ -65,3 +70,26 @@ function Signup(props) {
   )
 }
 export default Signup;
+const container = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)"
+}
+const head={
+    textAlign:'center'
+}
+const span = { color: "rgb(0, 124, 155)" }
+const input = { height: "30px", width: "300px", fontSize: "2em" }
+const btn = {
+    alignItems: "center",
+    width: "310px",
+    height: "35px",
+    color: "white",
+    backgroundColor: "rgb(8, 101, 206)",
+    fontSize: "1.3em",
+    textAlign: "center",
+    paddingTop: "6px"
+}
+  
