@@ -6,7 +6,6 @@ import Home from './Home'
 function Signin(props) {
     const emailref = useRef()
     const passwordref = useRef()
-    const secretref = useRef()
     async function signin(){
         await signInWithEmailAndPassword(auth,emailref.current.value,passwordref.current.value)
         .then(user=>console.log(user))

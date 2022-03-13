@@ -1,13 +1,15 @@
 import { onAuthStateChanged, signOut } from '@firebase/auth'
+import { addDoc, collection } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
+import Contactlist from './Contactlist'
 
 export default function Home() {
-    const [name,setName] = useState()
+    const [id,setId] = useState()
     useEffect(()=>{
         const check=onAuthStateChanged(auth, (user) => {
             if(user)
-            setName(user.uid)
+            setId(user.uid)
         })
         return check
     },[])
@@ -24,10 +26,22 @@ export default function Home() {
     const change=(e)=>{
         setData({...data,[e.target.name]:e.target.value})
     }
-    const addContact=(e)=>{
+    async function addContact(e){
         e.preventDefault();
         console.log(data)
+        try {
+            const docRef = await addDoc(collection(db, 'contacts'), {
+              cid:id,
+              cname: contactName,
+              cnumber: contactNumber,
+              cmail: contactMail
+            });
+            console.log("Document written with ID: ", docRef.id);
+        }catch (e) {
+            console.error("Error adding document: ", e);
+        }
     }
+
   return (
     <div>
         <button onClick={signout}>Signout</button>
@@ -41,7 +55,7 @@ export default function Home() {
         <input placeholder='Email' name='contactMail' value={contactMail} onChange={change} />
         <button onClick={addContact}>Save</button>
         <h1>My Contacts</h1>
-
+        <Contactlist id={id}/>
     </div>
   )
 }

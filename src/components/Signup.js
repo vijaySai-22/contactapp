@@ -1,15 +1,32 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged } from '@firebase/auth'
-import React, { useEffect, useRef, useState } from 'react'
-import { auth } from '../firebase'
+import { addDoc, collection } from '@firebase/firestore'
+import React, { useEffect, useState } from 'react'
+import { auth, db } from '../firebase'
 import Home from './Home'
 
 function Signup(props) {
-    const emailref = useRef()
-    const passwordref = useRef()
-    const secretref = useRef()
+    const[data,setData]=useState({
+        email:'',
+        password:'',
+        secret:'',
+    })
+    const {email,password,secret}=data
+    const change=(e)=>{
+        setData({...data,[e.target.name]:e.target.value})
+    }
     async function signup(){
-        await createUserWithEmailAndPassword(auth,emailref.current.value,passwordref.current.value)
+        await createUserWithEmailAndPassword(auth,email,password)
         .then(user=>console.log(user))
+        try {
+            const docRef = await addDoc(collection(db, "users"), {
+              email: email,
+              password: password,
+              secretKey: secret
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
     }
     const [userIn,setUserIn] = useState(false)
     useEffect(()=>{
@@ -32,11 +49,11 @@ function Signup(props) {
                 <h1>Signup</h1>
                 <p>Already have an account <span onClick={()=>props.changeHasAccount(true)}>Login</span></p>
                 <h3>Email</h3>
-                <input type='email' ref={emailref} required/>
+                <input type='email' onChange={change} value={email} name='email' required/>
                 <h3>Password</h3>
-                <input type='password' ref={passwordref} required/>
+                <input type='password' onChange={change} value={password} name='password' required/>
                 <h3>Secret</h3>
-                <input type='password' ref={secretref}/>
+                <input type='password' onChange={change} value={secret} name='secret' />
                 <br/>
                 <br/>
                 <button onClick={signup} >Sign Up</button>
