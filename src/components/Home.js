@@ -105,7 +105,8 @@ export default function Home() {
 const tablestyle = { 
     border: "1px solid black", 
     borderCollapse: "collapse", 
-    padding: "15px"
+    padding: "15px",
+    alignItems:'center'
 }
 const thstyle = {
     border: "1px solid black",
@@ -134,5 +135,5 @@ const btn2 = {
 }
 const input = { height: "30px", width: "300px", fontSize: "1.3em" }
 const container={
-    width:'50%'
+    textAlign:'center',
 }
