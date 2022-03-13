@@ -6,13 +6,16 @@ This is a webapplication, it can store contacts for different users you can logi
 # How to Run:
 Clone this repo and run in your machine using npm commad "npm start", make sure your machine contains NodeJs and Npm
 
-To View Live WebApp:
+### Need to update : popups for errors, good UI
+
+### To View Live WebApp:
 [clickHereToView](https://hopeful-almeida-4a9623.netlify.app/)
 
 ### Note: Sometimes you may not able to add contacts that means the firebse quota reached, you have to do after 24 hrs
 -Thankyou
-Following is Default Readme.md for ReactApp
 
+
+Following is Default Readme.md for ReactApp
 
 # Getting Started with Create React App
 
