@@ -11,7 +11,8 @@ Clone this repo and run in your machine using npm commad "npm start", make sure 
 ### To View Live WebApp:
 [clickHereToView](https://hopeful-almeida-4a9623.netlify.app/)
 
-### Note: Sometimes you may not able to add contacts that means the firebse quota reached, you have to do after 24 hrs
+## Note:
+### Sometimes you may not able to add contacts that means the firebse quota reached, you have to do after 24 hrs
 -Thankyou
 
 
