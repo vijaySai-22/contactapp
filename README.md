@@ -1,20 +1,34 @@
 # Project Name : [Contact Manager App](https://hopeful-almeida-4a9623.netlify.app/) Using ReactJs and Firebase 
 
-# Project Details:
-This is a webapplication, it can store contacts for different users you can login can you your contacts only.
+## Project Details:
+- This is a webapplication,
+- Users can login using mail and password.
+- If they have no account then can create their own profils using mailid and password.
+- It can store contacts data which was entered by user and shows only that particular user contacts, it will show others contact.
 
-# How to Run:
+## Technologies Used:
+- React Js 17.0.2 -for frontend
+- Firebase 9 -for authentication and to read/write data from cloud firestore.
+
+## Referred from:
+- Firebase ver-9 documentation
+- React Js documentation
+- Stackoverflow
+- w3schools
+
+## How to Run:
 Clone this repo and run in your machine using npm commad "npm start", make sure your machine contains NodeJs and Npm
 
-### Need to update : popups for errors, good UI
+### Need to update : Good UI
 
 ### To View Live WebApp:
 [clickHereToView](https://hopeful-almeida-4a9623.netlify.app/)
 
-## Note:
+### Note:
 ### Sometimes you may not able to add contacts that means the firebse quota reached, you have to do after 24 hrs
 -Thankyou
 
+<hr/>
 
 Following is Default Readme.md for ReactApp
 
