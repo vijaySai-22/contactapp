@@ -7,8 +7,14 @@ function Signin(props) {
     const emailref = useRef()
     const passwordref = useRef()
     async function signin(){
-        await signInWithEmailAndPassword(auth,emailref.current.value,passwordref.current.value)
+        try{
+            await signInWithEmailAndPassword(auth,emailref.current.value,passwordref.current.value)
         .then(user=>console.log(user))
+        }catch{
+            alert("Invalid Details")
+        }
+        emailref.current.value=''
+        passwordref.current.value=''
     }
     const [userIn,setUserIn] = useState(false)
     useEffect(()=>{
@@ -31,9 +37,9 @@ function Signin(props) {
                 <h1 style={head}>Sign In</h1>
                 <p style={head}>Don't have an account <span style={span} onClick={()=>props.changeHasAccount(false)}>Signup</span></p>
                 <h3>Email</h3>
-                <input style={input} type='email' ref={emailref} required/>
+                <input placeholder="Enter MailId" style={input} type='email' ref={emailref} required/>
                 <h3>Password</h3>
-                <input style={input} type='password' ref={passwordref} required/>
+                <input placeholder="Enter Password" style={input} type='password' ref={passwordref} required/>
                 <br/>
                 <p style={fgt}>Forgot your password?</p>
                 <div style={btn} onClick={signin} >Sign In</div>

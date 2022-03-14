@@ -15,18 +15,23 @@ function Signup(props) {
         setData({...data,[e.target.name]:e.target.value})
     }
     async function signup(){
-        await createUserWithEmailAndPassword(auth,email,password)
-        .then(user=>console.log(user))
-        try {
-            const docRef = await addDoc(collection(db, "users"), {
-              email: email,
-              password: password,
-              secretKey: secret
-            });
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
+        try{
+            await createUserWithEmailAndPassword(auth,email,password)
+            .then(user=>console.log(user))
+            try {
+                const docRef = await addDoc(collection(db, "users"), {
+                  email: email,
+                  password: password,
+                  secretKey: secret
+                });
+                console.log("Document written with ID: ", docRef.id);
+            }catch (e) {
+                console.error("Error adding document: ", e);
+            }
+        }catch(e){
+            alert(e.message)
+        }
+        setData({ email:'',password:'',secret:'',})
     }
     const [userIn,setUserIn] = useState(false)
     useEffect(()=>{
@@ -52,11 +57,11 @@ function Signup(props) {
                 <h1 style={head}>Signup</h1>
                 <p style={head}>Already have an account <span style={span} onClick={()=>props.changeHasAccount(true)}>Login</span></p>
                 <h3>Email</h3>
-                <input style={input} type='email' onChange={change} value={email} name='email' required/>
+                <input style={input} type='email' onChange={change} value={email} name='email' placeholder='Enter Your Mail' required/>
                 <h3>Password</h3>
-                <input style={input} type='password' onChange={change} value={password} name='password' required/>
+                <input style={input} type='password' onChange={change} value={password} name='password' placeholder='Set New Password' required/>
                 <h3>Secret</h3>
-                <input style={input} type='password' onChange={change} value={secret} name='secret' />
+                <input style={input} type='password' onChange={change} value={secret} name='secret' placeholder='Set Secret Key' />
                 <br/>
                 <br/>
                 <div style={btn} onClick={signup} >Sign Up</div>

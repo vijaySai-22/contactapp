@@ -1,21 +1,35 @@
-import { onAuthStateChanged, signOut } from '@firebase/auth'
+import { getAuth, signOut } from '@firebase/auth'
 import { addDoc, collection, getDocs, } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { auth, db } from '../firebase'
 
 export default function Home() {
     const [id,setId] = useState()
+    const [contactList,setContactList] = useState([])
+
     useEffect(()=>{
-        const check=onAuthStateChanged(auth, (user) => {
-            if(user)
-            setId(user.uid)
-        })
-        return check
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user) {
+            setId(user.email)
+        }
     },[])
+    useEffect(()=>{
+        const fetchData=async()=>{
+            await getDocs(collection(db, `${id}`))
+            .then((snapshot)=>{
+                let contacts = []
+                snapshot.docs.forEach((doc)=>{
+                    contacts.push({...doc.data(),id:doc.id})
+                })
+                setContactList(contacts)
+            })
+        }
+        fetchData()
+    },[addContact])
     const signout=()=>{
         signOut(auth)
     }
-
     const[data,setData]=useState({
         contactName:'',
         contactNumber:'',
@@ -25,39 +39,22 @@ export default function Home() {
     const change=(e)=>{
         setData({...data,[e.target.name]:e.target.value})
     }
-    async function addContact(e){
-        e.preventDefault();
-        if(contactMail!==''&&contactNumber!==""&&contactMail!==''){
-            try {
-                const docRef = await addDoc(collection(db, 'contacts'), {
-                  cid:id,
-                  cname: contactName,
-                  cnumber: contactNumber,
-                  cmail: contactMail
-                });
-                console.log("Document written with ID: ", docRef.id);
-            }catch (e) {
-                console.error("Error adding document: ", e);
+    async function addContact(){
+        try{
+            if(contactMail!==''&&contactNumber!==''&&contactName!=='')
+            await addDoc(collection(db, `${id}`), {
+                cmail: contactMail,
+                cname: contactName,
+                cnumber: contactNumber
+            });
+            else{
+                alert('Fill all details..')
             }
-        }
-        
+            setData({contactName:'',contactNumber:'',contactMail:''})
+        }catch(e){
+            console.log(e)
+        }  
     }
-    const [contactList,setContactList] = useState([])
-    const usersContacts=collection(db,'contacts');
-    useEffect(()=>{
-        const getData=async()=>{
-            await getDocs(usersContacts)
-            .then((snapshot)=>{
-                let contacts = []
-                snapshot.docs.forEach((doc)=>{
-                    contacts.push({...doc.data(),id:doc.id})
-                })
-                setContactList(contacts)
-            })
-            
-        }
-        getData()
-    },[addContact])
 
   return (
     <div style={container}>
@@ -72,7 +69,7 @@ export default function Home() {
         <input style={input} placeholder='Email' name='contactMail' type='email' value={contactMail} onChange={change} required /><br/><br/>
         <button style={btn2} onClick={addContact}>Save</button>
         <h1>My Contacts</h1>
-        <table style={tablestyle} width='700px'>
+        <table style={tablestyle} style={{marginLeft:'auto',marginRight:'auto'}}>
             <tr style={tablestyle}>
                 <th style={thstyle}>Name</th>
                 <th style={thstyle}>Ph no</th>
@@ -89,7 +86,7 @@ export default function Home() {
                 <td style={tablestyle}>sample2@gmail.com</td>
             </tr>
             {contactList.map((e) => {
-                if(e.cid===id)
+                // if(e.cid===id)
             return (
                 <tr style={tablestyle} key={e.id}>
                     <td style={tablestyle}>{e.cname}</td>
