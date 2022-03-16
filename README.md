@@ -1,4 +1,4 @@
-# Project Name : [Contact Manager App](https://hopeful-almeida-4a9623.netlify.app/) Using ReactJs and Firebase 
+# Project Name : [Contact Manager App](https://contactapp-react.netlify.app/) Using ReactJs and Firebase 
 
 ## Project Details:
 - This is a webapplication,
@@ -22,7 +22,7 @@ Clone this repo and run in your machine using npm commad "npm start", make sure 
 ### Need to update : Good UI
 
 ### To View Live WebApp:
-[clickHereToView](https://hopeful-almeida-4a9623.netlify.app/)
+[clickHereToView](https://contactapp-react.netlify.app/)
 
 ### Note:
 ### Sometimes you may not able to add contacts that means the firebse quota reached, you have to do after 24 hrs
